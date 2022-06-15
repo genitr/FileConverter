@@ -106,40 +106,15 @@ public class Main {
                 Node node = nodeList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element employee = (Element) node;
-                    NodeList nodeListElement1 = employee.getElementsByTagName("id");
-                    Element element1 = (Element) nodeListElement1.item(0);
-                    NodeList nodeList1 = element1.getChildNodes();
-                    String id = nodeList1.item(0).getNodeValue();
-                    //System.out.println("id: " + id);
 
-                    NodeList nodeListElement2 = employee.getElementsByTagName("firstName");
-                    Element element2 = (Element) nodeListElement2.item(0);
-                    NodeList nodeList2 = element2.getChildNodes();
-                    String firstName = nodeList2.item(0).getNodeValue();
-                    //System.out.println("firstName: " + firstName);
-
-                    NodeList nodeListElement3 = employee.getElementsByTagName("lastName");
-                    Element element3 = (Element) nodeListElement3.item(0);
-                    NodeList nodeList3 = element3.getChildNodes();
-                    String lastName = nodeList3.item(0).getNodeValue();
-                    //System.out.println("lastName: " + lastName);
-
-                    NodeList nodeListElement4 = employee.getElementsByTagName("country");
-                    Element element4 = (Element) nodeListElement4.item(0);
-                    NodeList nodeList4 = element4.getChildNodes();
-                    String country = nodeList4.item(0).getNodeValue();
-                    //System.out.println("country: " + country);
-
-                    NodeList nodeListElement5 = employee.getElementsByTagName("age");
-                    Element element5 = (Element) nodeListElement5.item(0);
-                    NodeList nodeList5 = element5.getChildNodes();
-                    String age = nodeList5.item(0).getNodeValue();
-                    //System.out.println("age: " + age);
-
-                    Employee employee1 = new Employee
-                            (Long.parseLong(id), firstName, lastName, country, Integer.parseInt(age));
-                    employeeList.add(employee1);
-
+                    Employee employee2 = new Employee(
+                            Long.parseLong(getEmployeeParam(employee, "id")),
+                            getEmployeeParam(employee, "firstName"),
+                            getEmployeeParam(employee, "lastName"),
+                            getEmployeeParam(employee, "country"),
+                            Integer.parseInt(getEmployeeParam(employee, "age"))
+                    );
+                    employeeList.add(employee2);
                 }
             }
         } catch (Exception ex) {
@@ -147,6 +122,13 @@ public class Main {
         }
 
         return employeeList;
+    }
+
+    private static String getEmployeeParam(Element employee, String tagName) {
+        NodeList nodeListElement = employee.getElementsByTagName(tagName);
+        Element element = (Element) nodeListElement.item(0);
+        NodeList nodeList = element.getChildNodes();
+        return nodeList.item(0).getNodeValue();
     }
 
     // для задачи 3
@@ -179,4 +161,5 @@ public class Main {
         }
         return employees;
     }
+
 }
